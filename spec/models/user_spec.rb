@@ -14,7 +14,7 @@ describe "validations" do
 	end
 
 	it "should not allow identical usernames" do
-		user1 = User.new(user_name: 'bob', password: 'password')
+		User.create!(user_name: 'bob', password: 'password')
 		user2 = User.new(user_name: 'bob', password: 'password')
 		user2.valid?
 		expect(user2.errors[:user_name].size).to eq 1
