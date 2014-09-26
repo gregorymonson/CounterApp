@@ -14,13 +14,44 @@ class User < ActiveRecord::Base
 	validates :user_name, uniqueness: true
 	validates :user_name, presence: true
 
-	def add
+	def self.add(user_name, password) ###FIXME
+		new_user = User.new(user_name: user_name, password: password)
+		
+		if new_user.valid?
+			new_user.save
+			return new_user[:login_counter]
+		else
+			case
+			when !new_user[:user_name].present?
+				return ERR_BAD_USERNAME
+			when new_user[:user_name].size > MAX_USERNAME_LENGTH
+				return ERR_BAD_USERNAME
+			when User.where(user_name: user_name).all.size == 1
+				return ERR_USER_EXISTS
+			when new_user[:password].size > MAX_PASSWORD_LENGTH
+				return ERR_BAD_PASSWORD
+			end
+		end
 	end
 
-	def login
+	def self.login(user_name, password)
+		user = User.where(user_name: user_name, password: password)
+		if user.size == 0
+			return ERR_BAD_CREDENTIALS
+		else
+			user.first[:login_counter] += 1
+			user.first.save
+			return user.first[:login_counter]
+		end
 	end
 
-	def TESTAPI_resetFixture
+	def self.TESTAPI_resetFixture()
+		User.delete_all
+		return SUCCESS
+	end
+
+	def self.runUnitTests()
+		return %x[rspec spec/models]
 	end
 
 end

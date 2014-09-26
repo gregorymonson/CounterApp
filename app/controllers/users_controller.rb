@@ -1,6 +1,31 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+
+  def add()
+    code = User.add(params[:user_name], params[:password])
+    render json: {code: code}
+  end
+
+  def login()
+    code = User.login(params[:user_name], params[:password])
+    render json: {code: code}
+  end
+
+  def TESTAPI_resetFixture()
+    code = User.TESTAPI_resetFixture()
+    render json: {errCode: code}
+  end
+
+  def runUnitTests()
+    output = User.runUnitTests()
+    last_line = output.lines.last
+    last_line_captured = /(?<totalTests>\d+) examples, (?<nrFailed>\d+) failures/.match(last_line)
+    totalTests = last_line_captured[:totalTests]
+    nrFailed = last_line_captured[:nrFailed]
+    render json: {nrFailed: nrFailed, output: output, totalTests: totalTests}
+  end
+
   # GET /users
   # GET /users.json
   def index

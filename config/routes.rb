@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
   resources :users
 
+
+  post 'user/login', to: 'users#login'
+
+  post 'user/add', to: 'users#add'
+
+  post 'TESTAPI/resetFixture', to: 'users#TESTAPI_resetFixture'
+
+  post 'TESTAPI/unitTests', to: 'users#runUnitTests'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
