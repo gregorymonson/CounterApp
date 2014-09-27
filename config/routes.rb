@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users
-
+  #request.env['CONTENT_TYPE'] = 'application/json'
 
   post 'user/login', to: 'users#login'
 
@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post 'TESTAPI/resetFixture', to: 'users#TESTAPI_resetFixture'
 
   post 'TESTAPI/unitTests', to: 'users#runUnitTests'
+
+  get 'user/add', to: 'users#add'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

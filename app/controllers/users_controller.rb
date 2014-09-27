@@ -1,15 +1,30 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  #from :exception to :null_session
+
 
   def add()
     code = User.add(params[:user_name], params[:password])
-    render json: {code: code}
+    data = {}
+    if code >= 1
+      data[:count] = code
+      data[:errCode] = 1
+    else
+      data[:errCode] = code
+    end
+    render json: data
   end
 
   def login()
     code = User.login(params[:user_name], params[:password])
-    render json: {code: code}
+    if code >= 1
+      data[:count] = code
+      data[:errCode] = 1
+    else
+      data[:errCode] = code
+    end
+    render data
   end
 
   def TESTAPI_resetFixture()
