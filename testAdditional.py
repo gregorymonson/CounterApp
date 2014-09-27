@@ -39,7 +39,6 @@ class TestCommands(testLib.RestTestCase):
 
 
     def testAddUser1(self):
-        #self.makeRequest("TESTAPI/resetFixture", method="POST")
         respData = self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
         self.assertResponse(respData, count = 1)
 
@@ -62,7 +61,7 @@ class TestCommands(testLib.RestTestCase):
 
     def testLogin1(self):
         self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
-        respData = self.makeRequest("/users/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'})
+        respData = self.makeRequest("/user/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'})
         self.assertResponse(respData, count = 2, errCode = testLib.RestTestCase.SUCCESS)
 
     def testLogin2(self):
@@ -72,9 +71,9 @@ class TestCommands(testLib.RestTestCase):
         self.assertResponse(respData, count = 3, errCode = testLib.RestTestCase.SUCCESS)
 
     def testLogin3(self):
-            self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
-            respData = self.makeRequest("/user/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'PASSWORD'})
-            self.assertResponse(respData, count = None, errCode = testLib.RestTestCase.ERR_BAD_CREDENTIALS)    
+        self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
+        respData = self.makeRequest("/user/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'PASSWORD'})
+        self.assertResponse(respData, count = None, errCode = testLib.RestTestCase.ERR_BAD_CREDENTIALS)    
 
 
 

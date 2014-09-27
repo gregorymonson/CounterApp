@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-  #from :exception to :null_session
+  skip_before_action :verify_authenticiy_token
 
 
   def add()
@@ -18,13 +17,14 @@ class UsersController < ApplicationController
 
   def login()
     code = User.login(params[:user_name], params[:password])
+    data = {}
     if code >= 1
       data[:count] = code
       data[:errCode] = 1
     else
       data[:errCode] = code
     end
-    render data
+    render json: data
   end
 
   def TESTAPI_resetFixture()
@@ -36,8 +36,8 @@ class UsersController < ApplicationController
     output = User.runUnitTests()
     last_line = output.lines.last
     last_line_captured = /(?<totalTests>\d+) examples, (?<nrFailed>\d+) failures/.match(last_line)
-    totalTests = last_line_captured[:totalTests]
-    nrFailed = last_line_captured[:nrFailed]
+    totalTests = last_line_captured[:totalTests].to_i
+    nrFailed = last_line_captured[:nrFailed].to_i
     render json: {nrFailed: nrFailed, output: output, totalTests: totalTests}
   end
 
