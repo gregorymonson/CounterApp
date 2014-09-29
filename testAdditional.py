@@ -39,40 +39,40 @@ class TestCommands(testLib.RestTestCase):
 
 
     def testAddUser1(self):
-        respData = self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
+        respData = self.makeRequest("/users/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
         self.assertResponse(respData, count = 1)
 
     def testAddUser2(self):
-        self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
-        respData = self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
+        self.makeRequest("/users/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
+        respData = self.makeRequest("/users/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
         self.assertResponse(respData, count = None, errCode = testLib.RestTestCase.ERR_USER_EXISTS)
 
     def testAddUser3(self):
-        respData = self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'a'*129, 'password' : 'password'} )
+        respData = self.makeRequest("/users/add", method="POST", data = { 'user_name' : 'a'*129, 'password' : 'password'} )
         self.assertResponse(respData, count = None, errCode = testLib.RestTestCase.ERR_BAD_USERNAME)
 
     def testAddUser4(self):
-        respData = self.makeRequest("/user/add", method="POST", data = { 'user_name' : '', 'password' : 'password'} )
+        respData = self.makeRequest("/users/add", method="POST", data = { 'user_name' : '', 'password' : 'password'} )
         self.assertResponse(respData, count = None, errCode = testLib.RestTestCase.ERR_BAD_USERNAME)
 
     def testAddUser5(self):
-        respData = self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'a'*129} )
+        respData = self.makeRequest("/users/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'a'*129} )
         self.assertResponse(respData, count = None, errCode = testLib.RestTestCase.ERR_BAD_PASSWORD)
 
     def testLogin1(self):
-        self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
-        respData = self.makeRequest("/user/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'})
+        self.makeRequest("/users/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
+        respData = self.makeRequest("/users/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'})
         self.assertResponse(respData, count = 2, errCode = testLib.RestTestCase.SUCCESS)
 
     def testLogin2(self):
-        self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
-        self.makeRequest("/user/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'})
-        respData = self.makeRequest("/user/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'})
+        self.makeRequest("/users/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
+        self.makeRequest("/users/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'})
+        respData = self.makeRequest("/users/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'})
         self.assertResponse(respData, count = 3, errCode = testLib.RestTestCase.SUCCESS)
 
     def testLogin3(self):
-        self.makeRequest("/user/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
-        respData = self.makeRequest("/user/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'PASSWORD'})
+        self.makeRequest("/users/add", method="POST", data = { 'user_name' : 'user1', 'password' : 'password'} )
+        respData = self.makeRequest("/users/login", method="POST", data = { 'user_name' : 'user1', 'password' : 'PASSWORD'})
         self.assertResponse(respData, count = None, errCode = testLib.RestTestCase.ERR_BAD_CREDENTIALS)    
 
 

@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   resources :users
   #request.env['CONTENT_TYPE'] = 'application/json'
 
-  post 'user/login', to: 'users#login'
+  post 'users/login', to: 'users#login'
 
-  post 'user/add', to: 'users#add'
+  post 'users/add', to: 'users#add'
 
   post 'TESTAPI/resetFixture', to: 'users#TESTAPI_resetFixture'
 
