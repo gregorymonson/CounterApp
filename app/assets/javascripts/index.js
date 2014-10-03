@@ -1,12 +1,5 @@
 
-<head>
-  <title>Counter app</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
 
-  <script src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
-
-  <script type='text/javascript'>
 $(document).ready(function(){
   $('#countScreen').hide();
   $('#logoutScreen').hide();
@@ -61,7 +54,9 @@ function successfulLogin(count, username) {
 
 function unsuccessfulLogin(errCode) {
   clear();
-  
+  $('#logoutScreen').hide();
+  $('#countScreen').hide();
+  $('#loginScreen').show();
   if (errCode == -1) {
     $('#message').html('Incorrect username or password');
   } else if (errCode == -2) {
@@ -90,40 +85,3 @@ function displayCountScreen(data) {
     unsuccessfulLogin(errCode)
   }
 }
-</script>
-
-
-</head>
-
-<body>
-  <center>
-    <div id='message'></div>
-
-    <div id='loginScreen'>
-      <form>
-        <input type ='text' id='username' placeholder='username'>
-        <input type ='password' id ='password' placeholder='password'>
-        <input type ='submit' value='Login' id='loginButton'>
-        <input type='submit' value='Register' id='registerButton'>
-      </form>
-    </div>
-
-    <div id='countScreen'>
-      <h3>
-        Welcome <span class='name'></span>!
-      </h3>
-      <p>
-        You've logged in <span class='count'></span> times.
-      </p>
-    </div>
-
-    <div id='logoutScreen'>
-      <center>
-        <form>
-          <input type='submit' value = 'Log out' id='logoutButton'>
-        </form>
-      </center>
-    </div>
-  </center>
-</body>
-

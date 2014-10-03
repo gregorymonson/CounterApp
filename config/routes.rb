@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :users
   #request.env['CONTENT_TYPE'] = 'application/json'
 
+  get '/', to: 'users#index'
+
   post 'users/login', to: 'users#login'
 
   post 'users/add', to: 'users#add'
