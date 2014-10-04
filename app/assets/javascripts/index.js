@@ -54,9 +54,7 @@ function successfulLogin(count, username) {
 
 function unsuccessfulLogin(errCode) {
   clear();
-  $('#logoutScreen').hide();
-  $('#countScreen').hide();
-  $('#loginScreen').show();
+  
   if (errCode == -1) {
     $('#message').html('Incorrect username or password');
   } else if (errCode == -2) {
@@ -85,3 +83,5 @@ function displayCountScreen(data) {
     unsuccessfulLogin(errCode)
   }
 }
+
+
