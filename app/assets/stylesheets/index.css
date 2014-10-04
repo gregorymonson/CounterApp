@@ -11,15 +11,18 @@ input[type=submit] {
 	border-radius:10px;
 }
 
+/* Push button down on click */
 input[type=submit]:active {
 	vertical-align: top;
     padding: 8px 13px 6px;
 }
 
+/* Blue-green buttons on hover */
 input[type=submit]:hover {
 	background-color: #7FFFD4;
 }
 
+/* Blue/cream gradient background */
 body {
 	background-image: linear-gradient(70deg, #FFFFCC, #CCFFFF);
 	margin: 20px;

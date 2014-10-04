@@ -1,10 +1,11 @@
 
-
+//Initialize page
 $(document).ready(function(){
   $('#countScreen').hide();
   $('#logoutScreen').hide();
   $('#message').html('Please enter your username and password, or create a new account')
 
+  //Handle click on loginButton; 
   $('#loginButton').click(function(e){
     e.preventDefault();
     var username = $('#username').val();
@@ -22,9 +23,11 @@ $(document).ready(function(){
     });
   });
 
+  // Handle logoutButton by refreshing page
   $('#logoutButton').click(function(e) {
   });
 
+  // Handle click on registerButton. On success, switch to countScreen screen. On failure, display error message
   $('#registerButton').click(function(e){
     e.preventDefault();
     var username = $('#username').val();
@@ -43,6 +46,7 @@ $(document).ready(function(){
   });
 });
 
+//Update values count and username values in countScreen, and hide/show the appropriate portions of page
 function successfulLogin(count, username) {
   $('#message').html('');
   $('.name').html(username);
@@ -52,9 +56,9 @@ function successfulLogin(count, username) {
   $('#countScreen').show();
 }
 
+//Display error message and clear textboxes in form
 function unsuccessfulLogin(errCode) {
   clear();
-  
   if (errCode == -1) {
     $('#message').html('Incorrect username or password');
   } else if (errCode == -2) {
@@ -68,11 +72,13 @@ function unsuccessfulLogin(errCode) {
   }
 }
 
+//Clear textboxes in form
 function clear(){
   document.getElementById("username").value="";
   document.getElementById("password").value="";
 }
 
+// Display the appropriate screen based on user input
 function displayCountScreen(data) {
   var errCode = data['errCode'];
   var username = $('#username').val();
